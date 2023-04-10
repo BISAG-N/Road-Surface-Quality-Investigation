@@ -1,5 +1,5 @@
 import React,{useState,useContext,useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useHistory} from 'react-router-dom';
 
 //Icons
 import {MdSatelliteAlt} from 'react-icons/md'
@@ -15,18 +15,33 @@ import { useLocation} from 'react-router-dom';
 
 import { useLoadScript } from "@react-google-maps/api";
 
-const Leftbar = () => {
+//Logout
+import {ApiContext} from './ApiContext';
+
+const Leftbar = ({userd}) => {
 
     let location=useLocation();
     // const [check,setCheck]=useState(true);
     const userData=location.state;
-    const [fullname,setFullName]=useState(location.state.datacheck.fullname);
-    const [category,setCategory]=useState(location.state.datacheck.category.category)
+    console.log(userData)
+    console.log(userd)
+    // const [fullname,setFullName]=useState(location.state.datacheck.fullname);
+    const fullname=userd.fullname
+    // const [category,setCategory]=useState(location.state.datacheck.category.category)
+    const category=userd.category.category
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
         libraries: ["drawing"],
       });
+
+      let history=useHistory();
+  const { truevalue, settruevalue } = useContext(ApiContext);
+    const handleOut=()=>{
+        sessionStorage.removeItem('auth-token')
+        settruevalue(!truevalue)
+        history.push('/')
+          }
 
   return (
     
@@ -68,7 +83,7 @@ const Leftbar = () => {
                 </Link>
             </li>
             <li>
-                <Link to="video-investigation" className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
+                <Link to="/video-investigation" className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                     <span className="text-gray-600 h-5">
                        <MdVideoCameraBack/>
                     </span>
@@ -76,7 +91,7 @@ const Leftbar = () => {
                 </Link>
             </li>
             <li>
-                <Link to="investigation-report" className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
+                <Link to="/investigation-report" className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                     <span className="text-gray-600 h-5">
                         <TbReport />                        
                     </span>
@@ -92,12 +107,12 @@ const Leftbar = () => {
                 </Link>
             </li>
             <li>
-                <Link to="#" className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
+                <button onClick={handleOut} className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                     <span className="text-gray-600">
                         <MdExitToApp/>
                     </span>
                     <span>Logout</span>
-                </Link>
+                </button>
             </li>
         </ul>
     </div>

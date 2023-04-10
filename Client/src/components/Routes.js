@@ -1,8 +1,7 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter,Switch, Route } from 'react-router-dom';
 import Signup from './Signup';
 import Login from './Login';
-import UserHome from './UserHome';
 import Home from './Home';
 import Details from './Details';
 import AdminControl from './AdminControl';
@@ -10,13 +9,21 @@ import PrivateRoute from './PrivateRoute';
 import Reset from './Reset';
 import  SetPassword from './SetPassword'
 import Redirect from './Redirect';
-import four  from './four'
+import four  from './four';
+
+// Components
+import UserHome from './UserHome';
+import ImageInvestigation from './ImageInvestigation'
+import VideoInvestigation from './VideoInvestigation'
+import Dashboard from "./Dashboard";
+
 const Routes = () => {
     return (
         <>
+        {/* <BrowserRouter> */}
             <Switch>
               
-                <Route exact path="/" ><Home /></Route>
+                <PrivateRoute exact path="/" ><Home /></PrivateRoute>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/signup" ><Signup /></Route>
                 {/* <PrivateRoute exact path="/detail" component={Details}/> */}
@@ -24,9 +31,15 @@ const Routes = () => {
                 {/* <PrivateRoute exact path='/all-details' component={AdminControl}/> */}
                 <Route exact path="/reset" component={Reset}/>
                 <Route exact path="/set-password/:token" component={SetPassword}/>
-                <PrivateRoute exact path="/dashboard" component={UserHome}/>
+
+
+                <PrivateRoute exact path="/dashboard"><UserHome RenComponent={Dashboard} /></PrivateRoute>
+                <PrivateRoute exact path="/image-investigation"><UserHome RenComponent={ImageInvestigation} /></PrivateRoute>
+                <PrivateRoute exact path="/video-investigation"><UserHome RenComponent={VideoInvestigation} /></PrivateRoute>
+
                 <Route path="*" component={four}/>
             </Switch>
+            {/* </BrowserRouter> */}
         </>
     )
 }

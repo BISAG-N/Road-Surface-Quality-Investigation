@@ -11,7 +11,7 @@ const Login = () => {
     const [emailError, setEmailError] = useState("")
     const [passwordError, setPasswordError] = useState("")
 
-    const { truevalue, settruevalue, isAuth, setIsAuth } = useContext(ApiContext);
+    const { truevalue, settruevalue, isAuth, setIsAuth,userData,setUserData} = useContext(ApiContext);
     console.log("isAuth", isAuth)
     var usercheck = '';
     var datacheck = '';
@@ -31,7 +31,10 @@ const Login = () => {
             const res = await axios.post('http://localhost:8000/login/', value)
                 .then(res => {
                     sessionStorage.setItem("auth-token", res.headers['auth-token'])
+                    sessionStorage.setItem("userid", res.data.user)
+                    
                     datacheck=res.data
+                    setUserData(datacheck)
                     usercheck = res.data.user
                     rolecheck = res.data.role
                     activeDeactive = res.data.active
