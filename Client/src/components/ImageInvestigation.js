@@ -1,13 +1,16 @@
 import React ,{useState} from 'react'
+import axios from 'axios'
 
 const ImageInvestigation = () => {
 
   const [fileInputState,setFileInputState] = useState('')
   const [selectedFile,setSelectedFile] = useState('')
   const [previewSource,setPreviewSource] = useState()
+  const uid = sessionStorage.getItem("userid");
   
   const handleFileInputChange = (e)=>{
     const file = e.target.files[0];
+    setSelectedFile(file)
     previewFile(file);
   }
 
@@ -27,11 +30,20 @@ const ImageInvestigation = () => {
     // const reader = new FileReader();
     // reader.readAsDataURL()
 
-    uploadImage(previewSource);
+    uploadImage(selectedFile);
   }
 
-  const uploadImage = (base64EncodedImage) =>{
-    console.log(base64EncodedImage)
+  const uploadImage = async (image) =>{
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('user',uid);
+    
+    try {
+      const image = await axios.post('http://localhost:8000/upload/image',formData);
+      console.log(image)
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -51,7 +63,7 @@ const ImageInvestigation = () => {
           </label>
           
       </div> 
-      <button type="button" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
       </form>
 
       {previewSource && (<img src={previewSource} alt="chosen" class=" h-80 w-80"/>)}
