@@ -47,7 +47,7 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedT
     app.use(cookieParser())
 
 app.use(userRouter)
-app.use('/upload',imageRouter)
+app.use('/image',imageRouter)
 
 // app.get('/find',(req,res)=>{
 //     const user=User.find()

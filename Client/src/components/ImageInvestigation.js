@@ -39,7 +39,7 @@ const ImageInvestigation = () => {
     formData.append('user',uid);
     
     try {
-      const image = await axios.post('http://localhost:8000/upload/image',formData);
+      const image = await axios.post('http://localhost:8000/image/upload',formData);
       console.log(image)
     } catch (err) {
       console.error(err);
@@ -49,7 +49,7 @@ const ImageInvestigation = () => {
   return (
     <div>
       {/* <h1>Upload Image</h1> */}
-
+      <h3 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide p-4">Upload Image:</h3>
       <form onSubmit={handleSubmitFile}>
       <div className="flex items-center justify-center w-full">
         
