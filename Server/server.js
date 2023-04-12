@@ -6,6 +6,7 @@ const Category=require('./models/category');
 const createCategory=require('./category.json')
 const userRouter=require('./routes/userRoutes')
 const imageRouter=require('./routes/imageRouter')
+const videoRouter=require('./routes/videoRouter')
 const cookieParser=require('cookie-parser');
 const requireAuth=require('./requireAuth')
 const User=require('./models/user')
@@ -48,6 +49,7 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedT
 
 app.use(userRouter)
 app.use('/image',imageRouter)
+app.use('/video',videoRouter)
 
 // app.get('/find',(req,res)=>{
 //     const user=User.find()

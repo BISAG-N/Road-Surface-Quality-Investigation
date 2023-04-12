@@ -33,14 +33,14 @@ const VideoInvestigation = () => {
     uploadImage(selectedFile);
   }
 
-  const uploadImage = async (image) =>{
+  const uploadImage = async (video) =>{
     const formData = new FormData();
-    formData.append('image', image);
+    formData.append('video', video);
     formData.append('user',uid);
     
     try {
-      const image = await axios.post('http://localhost:8000/upload/image',formData);
-      console.log(image)
+      const video = await axios.post('http://localhost:8000/video/upload',formData);
+      console.log(video)
     } catch (err) {
       console.error(err);
     }
@@ -57,9 +57,9 @@ const VideoInvestigation = () => {
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                   <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                   <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX. 600x600px)</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">MP4 (MAX. 100 MB)</p>
               </div>
-              <input onChange={handleFileInputChange} id="dropzone-file" name='image' type="file" value={fileInputState} className="hidden" />
+              <input onChange={handleFileInputChange} id="dropzone-file" name='video' type="file" value={fileInputState} className="hidden" />
           </label>
           
       </div> 
@@ -68,8 +68,9 @@ const VideoInvestigation = () => {
 
       {previewSource && (
       // <img src={previewSource} alt="chosen" class=" h-80 w-80"/>
-        <video width="320" height="240" controls>
+        <video width="500" height="500" controls>
     <source src={previewSource} type="video/mp4" />
+    <source src={previewSource} type="video/ogg" />
       </video>
       )}
 
