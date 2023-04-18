@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 import Routes from './components/Routes';
 function App() {
   const [out, setOut] = useState()

@@ -28,12 +28,12 @@ const Routes = () => {
                 <Route exact path="/signup" ><Signup /></Route>
                 {/* <PrivateRoute exact path="/detail" component={Details}/> */}
                 {/* <Route exact path="/admin"><Admin /></Route> */}
-                {/* <PrivateRoute exact path='/all-details' component={AdminControl}/> */}
+                <PrivateRoute exact path='/admin' component={AdminControl}/>
                 <Route exact path="/reset" component={Reset}/>
                 <Route exact path="/set-password/:token" component={SetPassword}/>
 
 
-                <PrivateRoute exact path="/dashboard"><UserHome RenComponent={Dashboard} /></PrivateRoute>
+                <PrivateRoute exact path="/dashboard"><Redirect /></PrivateRoute>
                 <PrivateRoute exact path="/image-investigation"><UserHome RenComponent={ImageInvestigation} /></PrivateRoute>
                 <PrivateRoute exact path="/video-investigation"><UserHome RenComponent={VideoInvestigation} /></PrivateRoute>
 

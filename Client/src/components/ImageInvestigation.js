@@ -1,5 +1,7 @@
 import React ,{useState} from 'react'
 import axios from 'axios'
+import { ToastContainer, toast } from "react-toastify";
+
 
 const ImageInvestigation = () => {
 
@@ -10,10 +12,13 @@ const ImageInvestigation = () => {
   
   const handleFileInputChange = (e)=>{
     const file = e.target.files[0];
+    setFileInputState(fileInputState)
     setSelectedFile(file)
     previewFile(file);
+    console.log(file)
   }
-
+  const obj = JSON.parse("{\"khami\": [\"D44\", \"D44\"], \"value\": [0.13713069260120392, 0.12918542325496674]}")
+  console.log(obj)
   const previewFile = (file) =>{
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -39,8 +44,14 @@ const ImageInvestigation = () => {
     formData.append('user',uid);
     
     try {
-      const image = await axios.post('http://localhost:8000/image/upload',formData);
-      console.log(image)
+      await axios.post('http://localhost:8000/image/upload',formData).then((image)=>{
+
+        console.log(image)
+        toast.success('Image Uploaded!', {
+          position: toast.POSITION.BOTTOM_CENTER
+      });
+      })
+
     } catch (err) {
       console.error(err);
     }
@@ -48,19 +59,20 @@ const ImageInvestigation = () => {
 
   return (
     <div>
+      <ToastContainer />
       {/* <h1>Upload Image</h1> */}
-      <h3 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide p-4">Upload Image:</h3>
+      {/* <h3 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide p-4">Upload Image:</h3> */}
       <form onSubmit={handleSubmitFile}>
       <div className="flex items-center justify-center w-full">
         
-          <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+          {/* <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                   <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                   <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX. 600x600px)</p>
               </div>
-              <input onChange={handleFileInputChange} id="dropzone-file" name='image' type="file" value={fileInputState} className="hidden" />
-          </label>
+          </label>  */}
+              <input onChange={handleFileInputChange} id="dropzone-file" name='image' type="file" value={fileInputState.name}  />
           
       </div> 
       <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>

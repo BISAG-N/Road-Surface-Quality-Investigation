@@ -221,7 +221,7 @@ const AdminControl = () => {
     }
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <>
                 <center><h1>Admin Dashboard</h1></center>
                 <center><button onClick={newData} className="m-2 p-2 btn btn-warning">{addData ? 'Hide' : 'Add New Data'}</button></center>
