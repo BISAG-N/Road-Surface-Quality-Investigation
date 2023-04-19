@@ -17,8 +17,8 @@ const ImageInvestigation = () => {
     previewFile(file);
     console.log(file)
   }
-  const obj = JSON.parse("{\"khami\": [\"D44\", \"D44\"], \"value\": [0.13713069260120392, 0.12918542325496674]}")
-  console.log(obj)
+  // const obj = JSON.parse("{\"khami\": [\"D44\", \"D44\"], \"value\": [0.13713069260120392, 0.12918542325496674]}")
+  // console.log(obj.khami)
   const previewFile = (file) =>{
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -35,22 +35,71 @@ const ImageInvestigation = () => {
     // const reader = new FileReader();
     // reader.readAsDataURL()
 
-    uploadImage(selectedFile);
+    uploadData(selectedFile,e);
   }
 
-  const uploadImage = async (image) =>{
-    const formData = new FormData();
-    formData.append('image', image);
-    formData.append('user',uid);
+  const uploadData = async (image,e) =>{
+    const imageData = new FormData();
+    imageData.append('image', image);
+    imageData.append('user',uid);
+
+    // const formData= new FormData();
+    // const name="name"
+    // const district="district"
+    // const state="state"
+    // formData.append('user',uid);
+    // formData.append('name',name);
+    // formData.append('district',district);
+    // formData.append('state',state);
+    // formData.append('user',uid);
+    // formData.append('user',uid);
+    const Data=new Object();
+    Data.user=uid;
+    Data.name="name"
+    Data.district="district"
+    Data.state="State"
+    
     
     try {
-      await axios.post('http://localhost:8000/image/upload',formData).then((image)=>{
+      await axios.post('http://localhost:8000/image/upload',imageData).then((image)=>{
 
         console.log(image)
+        // formData.append('image',image.data.image);
+        // formData.append('imageId',image.data.imageId);
+        Data.image=image.data.image
+        Data.imageId=image.data.imageId
         toast.success('Image Uploaded!', {
           position: toast.POSITION.BOTTOM_CENTER
       });
       })
+      .catch((err)=>{
+        console.log(err)
+      })
+      
+      toast.info('Running Model!', {
+        position: toast.POSITION.BOTTOM_CENTER
+    });
+
+      await axios.post('http://localhost:8080/',imageData).then((result)=>{
+        console.log(result)
+        const obj=JSON.parse(result.data)
+        // formData.append('distress',obj);
+        Data.distress=obj
+        
+        console.log(obj);
+        toast.success('Model Performed!', {
+          position: toast.POSITION.BOTTOM_CENTER
+      });
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+
+      console.log(Data)
+      await axios.post('http://localhost:8000/road/store',Data)
+                  .then((res)=>{
+                    console.log(res)
+                  })
 
     } catch (err) {
       console.error(err);
@@ -72,10 +121,11 @@ const ImageInvestigation = () => {
                   <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX. 600x600px)</p>
               </div>
           </label>  */}
+              
               <input onChange={handleFileInputChange} id="dropzone-file" name='image' type="file" value={fileInputState.name}  />
           
       </div> 
-      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+      <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
       </form>
 
       {previewSource && (<img src={previewSource} alt="chosen" class=" h-85 w-85"/>)}

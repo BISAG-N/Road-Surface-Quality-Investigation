@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const videoSchema = new mongoose.Schema({
-    user: mongoose.Schema.Types.ObjectId, 
+    user: {
+
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }, 
     video: String,
     videoId: String
 },{ timestamps: true })

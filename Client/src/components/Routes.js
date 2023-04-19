@@ -16,6 +16,7 @@ import UserHome from './UserHome';
 import ImageInvestigation from './ImageInvestigation'
 import VideoInvestigation from './VideoInvestigation'
 import Dashboard from "./Dashboard";
+import InvestigationReport from './InvestigationReport';
 
 const Routes = () => {
     return (
@@ -36,6 +37,7 @@ const Routes = () => {
                 <PrivateRoute exact path="/dashboard"><Redirect /></PrivateRoute>
                 <PrivateRoute exact path="/image-investigation"><UserHome RenComponent={ImageInvestigation} /></PrivateRoute>
                 <PrivateRoute exact path="/video-investigation"><UserHome RenComponent={VideoInvestigation} /></PrivateRoute>
+                <PrivateRoute exact path="/investigation-report"><UserHome RenComponent={InvestigationReport} /></PrivateRoute>
 
                 <Route path="*" component={four}/>
             </Switch>
