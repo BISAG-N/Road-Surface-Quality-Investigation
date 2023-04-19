@@ -6,7 +6,7 @@ const cloudinary= require('../utill/cloudinary_config')
 const upload= require('../utill/multer_utill') 
 
 
-router.post('/upload',upload.single("image"),async (req,res)=>{
+router.post('/uploads',upload.single("image"),async (req,res)=>{
 
     try{
         const result = await cloudinary.uploader.upload(req.file.path,{ folder: `BISAG` })
@@ -28,6 +28,41 @@ router.post('/upload',upload.single("image"),async (req,res)=>{
     } catch(err){
         res.status(400).json({msg: err})
     }
+})
+
+router.post('/uploadm',upload.array("image"),async (req,res)=>{
+  const urls=[]
+  console.log(req.files)
+  try{
+    
+
+    for(var i=0;i<req.files.length;i++){
+
+      const result = await cloudinary.uploader.upload(req.files[i].path,{ folder: `BISAG` })
+      .then(async (result)=>{
+
+            urls.push(result.secure_url)
+          // res.json(result)
+          let image = new Image({
+              user:req.body.user,
+              image: result.secure_url,
+              imageId: result.public_id,
+          })
+
+          await image.save();
+          // res.status(200).json(image);
+      })
+      .catch((err)=>{
+          res.status(400).json({msg:err})
+      })
+      
+    }
+    console.log(urls)
+    res.status(200).json({"urls":urls})
+      
+  } catch(err){
+      res.status(400).json({msg: err})
+  }
 })
 
 router.get('/getLatest', async (req, res) => {

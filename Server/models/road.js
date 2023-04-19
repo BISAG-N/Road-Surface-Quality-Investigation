@@ -22,8 +22,8 @@ const roadSchema = new mongoose.Schema({
 
     distress: Object,
     
-    image: String,
-    imageId: String,
+    image: [String],
+    // imageId: String,
 },{ timestamps: true })
 
 const Road = mongoose.model('Road', roadSchema);

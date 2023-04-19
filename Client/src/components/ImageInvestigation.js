@@ -7,15 +7,19 @@ const ImageInvestigation = () => {
 
   const [fileInputState,setFileInputState] = useState('')
   const [selectedFile,setSelectedFile] = useState('')
+  const [selectedFiles,setSelectedFiles] = useState()
   const [previewSource,setPreviewSource] = useState()
   const uid = sessionStorage.getItem("userid");
   
   const handleFileInputChange = (e)=>{
     const file = e.target.files[0];
+    const files = e.target.files;
     setFileInputState(fileInputState)
     setSelectedFile(file)
+    setSelectedFiles(files)
     previewFile(file);
     console.log(file)
+    console.log(files)
   }
   // const obj = JSON.parse("{\"khami\": [\"D44\", \"D44\"], \"value\": [0.13713069260120392, 0.12918542325496674]}")
   // console.log(obj.khami)
@@ -34,40 +38,55 @@ const ImageInvestigation = () => {
 
     // const reader = new FileReader();
     // reader.readAsDataURL()
+    console.log(selectedFiles)
+    // uploadData(selectedFile,e);
+    uploadDatas(selectedFiles,e);
 
-    uploadData(selectedFile,e);
   }
 
-  const uploadData = async (image,e) =>{
+ 
+
+  const uploadDatas = async (images,e) =>{
+    console.log(images)
     const imageData = new FormData();
-    imageData.append('image', image);
+    // imageData.append('image', images);
     imageData.append('user',uid);
 
-    // const formData= new FormData();
-    // const name="name"
-    // const district="district"
-    // const state="state"
-    // formData.append('user',uid);
-    // formData.append('name',name);
-    // formData.append('district',district);
-    // formData.append('state',state);
-    // formData.append('user',uid);
-    // formData.append('user',uid);
     const Data=new Object();
     Data.user=uid;
     Data.name="name"
     Data.district="district"
     Data.state="State"
-    
+
+    // const imageData={"image":images,"user":uid}
+    // var image1=[]
+    // for(var i=0;i<images.length;i++){
+    //   image1.push(images[i])
+    // }
+
+    // console.log(image1)
+    // const imageData= new Object();
+    // imageData.image= images
+    // imageData.user = uid
+    for (let i = 0; i < images.length; i++) {
+      imageData.append("image", images[i])
+    }
     
     try {
-      await axios.post('http://localhost:8000/image/upload',imageData).then((image)=>{
+      await axios.post('http://localhost:8000/image/uploadm',imageData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((image)=>{
 
         console.log(image)
         // formData.append('image',image.data.image);
         // formData.append('imageId',image.data.imageId);
-        Data.image=image.data.image
-        Data.imageId=image.data.imageId
+        // Data.image=image.data.image
+        // Data.imageId=image.data.imageId
+        Data.image=image.data.urls
         toast.success('Image Uploaded!', {
           position: toast.POSITION.BOTTOM_CENTER
       });
@@ -106,6 +125,74 @@ const ImageInvestigation = () => {
     }
   }
 
+  // const uploadData = async (image,e) =>{
+  //   const imageData = new FormData();
+  //   imageData.append('image', image);
+  //   imageData.append('user',uid);
+
+  //   // const formData= new FormData();
+  //   // const name="name"
+  //   // const district="district"
+  //   // const state="state"
+  //   // formData.append('user',uid);
+  //   // formData.append('name',name);
+  //   // formData.append('district',district);
+  //   // formData.append('state',state);
+  //   // formData.append('user',uid);
+  //   // formData.append('user',uid);
+  //   const Data=new Object();
+  //   Data.user=uid;
+  //   Data.name="name"
+  //   Data.district="district"
+  //   Data.state="State"
+    
+    
+  //   try {
+  //     await axios.post('http://localhost:8000/image/upload',imageData).then((image)=>{
+
+  //       console.log(image)
+  //       // formData.append('image',image.data.image);
+  //       // formData.append('imageId',image.data.imageId);
+  //       Data.image=image.data.image
+  //       Data.imageId=image.data.imageId
+  //       toast.success('Image Uploaded!', {
+  //         position: toast.POSITION.BOTTOM_CENTER
+  //     });
+  //     })
+  //     .catch((err)=>{
+  //       console.log(err)
+  //     })
+      
+  //     toast.info('Running Model!', {
+  //       position: toast.POSITION.BOTTOM_CENTER
+  //   });
+
+  //     await axios.post('http://localhost:8080/',imageData).then((result)=>{
+  //       console.log(result)
+  //       const obj=JSON.parse(result.data)
+  //       // formData.append('distress',obj);
+  //       Data.distress=obj
+        
+  //       console.log(obj);
+  //       toast.success('Model Performed!', {
+  //         position: toast.POSITION.BOTTOM_CENTER
+  //     });
+  //     })
+  //     .catch((err)=>{
+  //       console.log(err);
+  //     })
+
+  //     console.log(Data)
+  //     await axios.post('http://localhost:8000/road/store',Data)
+  //                 .then((res)=>{
+  //                   console.log(res)
+  //                 })
+
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
+
   return (
     <div>
       <ToastContainer />
@@ -122,7 +209,7 @@ const ImageInvestigation = () => {
               </div>
           </label>  */}
               
-              <input onChange={handleFileInputChange} id="dropzone-file" name='image' type="file" value={fileInputState.name}  />
+              <input onChange={handleFileInputChange} id="dropzone-file" name='image' type="file" value={fileInputState.name} multiple />
           
       </div> 
       <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
