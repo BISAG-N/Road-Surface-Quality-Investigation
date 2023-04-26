@@ -32,11 +32,11 @@ const InvestigationReport = () => {
   const columns = [
     {
       name: "Road Name",
-      selector: (row) => row.title,
+      selector: (row) => row.road.name,
     },
     {
       name: "District",
-      selector: (row) => row.year,
+      selector: (row) => row.road.district,
     },
   ];
   const data=[]
@@ -83,7 +83,7 @@ const InvestigationReport = () => {
 
   return (
     <>
-    {isLoaded ? (<DataTable columns={columns} data={data} />) : (<h1> Loading... </h1>)}
+    {isLoaded ? (<DataTable columns={columns} data={reportData} />) : (<h1> Loading... </h1>)}
   {/* <DataTable columns={columns} data={data} /> */}
 
   {/* <div>
