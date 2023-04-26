@@ -18,11 +18,9 @@ const roadSchema = new mongoose.Schema({
         type:String,
         required: [true,"Road Name is Required"],
 
-    },
-
-    distress: Object,
-    
+    },    
     image: [String],
+    video: String
     // imageId: String,
 },{ timestamps: true })
 

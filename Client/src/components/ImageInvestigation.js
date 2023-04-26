@@ -54,9 +54,9 @@ const ImageInvestigation = () => {
 
     const Data=new Object();
     Data.user=uid;
-    Data.name="name"
-    Data.district="district"
-    Data.state="State"
+    Data.name="name1"
+    Data.district="district1"
+    Data.state="State1"
 
     // const imageData={"image":images,"user":uid}
     // var image1=[]
@@ -200,22 +200,14 @@ const ImageInvestigation = () => {
       {/* <h3 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide p-4">Upload Image:</h3> */}
       <form onSubmit={handleSubmitFile}>
       <div className="flex items-center justify-center w-full">
-        
-          {/* <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-              <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX. 600x600px)</p>
-              </div>
-          </label>  */}
-              
-              <input onChange={handleFileInputChange} id="dropzone-file" name='image' type="file" value={fileInputState.name} multiple />
+
+        <input onChange={handleFileInputChange} id="dropzone-file" name='image' type="file" value={fileInputState.name} multiple />
           
       </div> 
       <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
       </form>
 
-      {previewSource && (<img src={previewSource} alt="chosen" class=" h-85 w-85"/>)}
+      {previewSource && (<img src={previewSource} alt="chosen" className=" h-85 w-85"/>)}
 
     </div>
   )
