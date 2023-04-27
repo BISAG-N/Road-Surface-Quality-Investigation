@@ -20,7 +20,7 @@ const Map = () => {
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyDnKsBLFKjI9aI5_Z8-wS5brMD99ycaKLE' }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
         defaultCenter={defaultCenter}
         defaultZoom={defaultZoom}
         options={map => ({ mapTypeId: map.MapTypeId.SATELLITE })}
