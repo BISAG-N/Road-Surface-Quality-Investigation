@@ -43,7 +43,7 @@ export const Geofence = () => {
   return (
     <GoogleMap
       mapContainerClassName="map-container"
-      center={{ lat: 18.51454707519716, lng: 73.8537696352756 }}
+      center={{ lat: 37.965694, lng: -104.791559 }}
       zoom={17}
       onLoad={onLoad}
     >

@@ -5,6 +5,8 @@ import {useLocation,useHistory} from 'react-router-dom'
 import AdminControl from './AdminControl';
 import Dashboard from "./Dashboard";
 import UserHome from './UserHome';
+import Map from "./Map"
+import SatelliteInvestigation from "./SatelliteInvestigation";
 const ShowData=()=>{
     const location=useLocation();
     // console.log("just checking the id",location.state.datacheck._id)
@@ -32,7 +34,7 @@ const ShowData=()=>{
   
     return(
         <>
-        {userData.role===0?<UserHome RenComponent={Dashboard} />:<UserHome RenComponent={AdminControl} />}
+        {userData.role ? (<UserHome RenComponent={AdminControl} />) : (<UserHome RenComponent={SatelliteInvestigation} />)}
         </>
     )
 }

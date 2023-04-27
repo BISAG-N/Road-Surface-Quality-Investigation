@@ -16,6 +16,7 @@ import UserHome from './UserHome';
 import ImageInvestigation from './ImageInvestigation'
 import VideoInvestigation from './VideoInvestigation'
 import Dashboard from "./Dashboard";
+import Map from "./Map"
 import InvestigationReport from './InvestigationReport';
 
 const Routes = () => {
