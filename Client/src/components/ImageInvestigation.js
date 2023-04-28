@@ -9,6 +9,7 @@ const ImageInvestigation = () => {
   const [selectedFile,setSelectedFile] = useState('')
   const [selectedFiles,setSelectedFiles] = useState()
   const [previewSource,setPreviewSource] = useState()
+  const [severity,setSeverity] = useState()
   const uid = sessionStorage.getItem("userid");
   
   const handleFileInputChange = (e)=>{
@@ -103,8 +104,9 @@ const ImageInvestigation = () => {
         console.log(result)
         const obj=JSON.parse(result.data)
         // formData.append('distress',obj);
-        Data.distress=obj
-        
+        Data.distress=obj.distress
+        Data.severity=obj.severity
+        setSeverity(obj.severity)
         console.log(obj);
         toast.success('Model Performed!', {
           position: toast.POSITION.BOTTOM_CENTER
@@ -140,6 +142,9 @@ const ImageInvestigation = () => {
       <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
       </form>
 
+      <br/>
+      {severity && (<h1>Road Severity is {severity}</h1>)}
+      <br/>
       {previewSource && (<img src={previewSource} alt="chosen" className=" h-85 w-85"/>)}
 
     </div>

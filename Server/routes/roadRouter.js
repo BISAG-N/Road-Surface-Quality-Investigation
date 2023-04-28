@@ -25,6 +25,7 @@ router.post('/store',async (req,res)=>{
             road: ans._id,
             distress: req.body.distress,
             image: req.body.image,
+            severity: req.body.severity
         })
         
         await report.save()

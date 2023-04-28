@@ -13,7 +13,7 @@ const Navbar=()=>{
           }
     return(
         
-      <div className="mb-2 md:border-b py-2">
+      <nav className="navbar mb-2 md:border-b py-2 sticky-top bg-white" >
       <div className="container mx-auto">
           <div className="flex justify-between gap-2">
               <img
@@ -26,7 +26,7 @@ const Navbar=()=>{
               </ul>
           </div>
       </div>
-  </div>
+  </nav>
 
     )
 }

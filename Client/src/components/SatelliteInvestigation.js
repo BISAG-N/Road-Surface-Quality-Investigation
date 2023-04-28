@@ -13,6 +13,7 @@ const SatelliteInvestigation = () => {
   const uid = sessionStorage.getItem("userid");
   const [userData, setUserData] = useState({});
   const [isLoaded, setLoaded] = useState(false);
+  const [severity,setSeverity] = useState()
 
 
   const handleSubmit = async (e) => {
@@ -44,8 +45,9 @@ const SatelliteInvestigation = () => {
           console.log(result);
           const obj = JSON.parse(result.data);
           // formData.append('distress',obj);
-          Data.distress = obj;
-
+          Data.distress=obj.distress
+          Data.severity=obj.severity
+          setSeverity(obj.severity)
           console.log(obj);
           toast.success("Model Performed!", {
             position: toast.POSITION.BOTTOM_CENTER,
@@ -70,6 +72,9 @@ const SatelliteInvestigation = () => {
       <Map></Map>
       <br />
       <br />
+      <br/>
+      {severity && (<h1>Road Severity is {severity}</h1>)}
+      <br/>
       <div className="flex items-center justify-center">
         <form onSubmit={handleSubmit} className="w-full max-w-lg">
           <div className="flex flex-wrap -mx-3 mb-6">

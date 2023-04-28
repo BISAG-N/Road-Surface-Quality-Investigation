@@ -1,5 +1,6 @@
 import React ,{useState} from 'react'
 import axios from 'axios'
+import { ToastContainer, toast } from "react-toastify";
 
 const VideoInvestigation = () => {
 
@@ -7,6 +8,7 @@ const VideoInvestigation = () => {
   const [selectedFile,setSelectedFile] = useState('')
   const [previewSource,setPreviewSource] = useState()
   const uid = sessionStorage.getItem("userid");
+  const [severity,setSeverity] = useState()
   
   const handleFileInputChange = (e)=>{
     const file = e.target.files[0];
@@ -44,10 +46,48 @@ const VideoInvestigation = () => {
     } catch (err) {
       console.error(err);
     }
+
+    const Data = new Object();
+    Data.user = uid;
+    Data.name = "name1";
+    Data.district = "district1";
+    Data.state = "State1";
+
+    try {
+      toast.info("Running Model!", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+
+      await axios
+        .post("http://localhost:8080/video/", formData)
+        .then((result) => {
+          console.log(result);
+          const obj = JSON.parse(result.data);
+          // formData.append('distress',obj);
+          Data.distress=obj.distress
+          Data.severity=obj.severity
+          setSeverity(obj.severity)
+          console.log(obj);
+          toast.success("Model Performed!", {
+            position: toast.POSITION.BOTTOM_CENTER,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      console.log(Data);
+      await axios.post("http://localhost:8000/road/store", Data).then((res) => {
+        console.log(res);
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
     <div>
+      <ToastContainer/>
       {/* <h1>Upload Image</h1> */}
       <h3 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide p-4">Upload Video:</h3>
       <form onSubmit={handleSubmitFile}>
@@ -65,6 +105,10 @@ const VideoInvestigation = () => {
       </div> 
       <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
       </form>
+
+      <br/>
+      {severity && (<h1>Road Severity is {severity}</h1>)}
+      <br/>
 
       {previewSource && (
       // <img src={previewSource} alt="chosen" class=" h-80 w-80"/>
