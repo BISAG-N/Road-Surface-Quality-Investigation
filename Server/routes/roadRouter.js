@@ -65,24 +65,6 @@ router.get('/get-report/:id',async (req,res) => {
                         })
 })
 
-// router.get('/getLatest', async (req, res) => {
-//     const getImage = await Image.findOne().sort({ _id: -1 });
-//     res.json(getImage.image);
-//   });
 
-//   router.delete("/delete/:id", async (req, res) => {
-//     try {
-//       // Find user by id
-//       let image = await Image.findById(req.params.id);
-//       // Delete image from cloudinary
-//       await cloudinary.uploader.destroy(image.cloudinary_id);
-//       // Delete user from db
-//       await image.remove();
-//       res.json(image);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   });
-  
 
 module.exports = router;

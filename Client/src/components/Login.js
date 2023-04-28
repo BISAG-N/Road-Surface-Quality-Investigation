@@ -184,30 +184,3 @@ const Login = () => {
 
 export default Login
 
-// <div>
-        //     
-
-            
-        //     <form onSubmit={handleSubmit} className="form-group form-width">
-        //         <center><h2 className="text-danger">Log in</h2></center>
-        //         <label for="email">Email</label>
-        //         <input type="text" name="email" required
-        //             value={value.email}
-        //             onChange={(e) => handleChange("email", e.target.value)}
-        //             className="form-control"
-        //         />
-        //         <div className="text-danger">{emailError}</div>
-        //         <label for="password">password</label>
-        //         <input type="password" name="password" required
-        //             value={value.password}
-        //             onChange={(e) => handleChange("password", e.target.value)}
-        //             className="form-control"
-        //         />
-        //         <div className="text-danger">{passwordError}</div>
-        //         <center><button className="btn btn-primary mt-2 ">Log in </button></center>
-        //     </form>
-        //     <center>
-
-        //     <Link to="/reset" className="text-danger mt-2">Forgot Password?</Link>
-        //     </center>
-        // </div>

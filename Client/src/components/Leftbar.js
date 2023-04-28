@@ -58,14 +58,7 @@ const Leftbar = ({userd}) => {
             </div>
         </div>
         <ul className="space-y-2 text-sm">
-            {/* <li>
-                <Link href="/dashboard" className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 bg-gray-200 focus:shadow-outline">
-                    <span className="text-gray-600">
-                       
-                    </span>
-                    <span>Dashboard</span>
-                </Link>
-            </li> */}
+            
             <li>
                 <Link to="/dashboard" className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                     <span className="text-gray-600 h-5">
