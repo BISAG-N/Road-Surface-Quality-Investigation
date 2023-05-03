@@ -55,8 +55,7 @@ router.post('/store',async (req,res)=>{
 router.get('/get-report/:id',async (req,res) => {
     const uid = req.params.id;
     const report = await Report.find({user: uid})
-                        .populate('user',["fullname","email","category"])
-                        .populate('road',["name","district","state"])
+                        .populate('road')
                         .then((result)=>{
                             console.log(result)
                             res.status(200).send(result)

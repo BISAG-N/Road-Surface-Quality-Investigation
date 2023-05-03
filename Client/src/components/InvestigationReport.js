@@ -43,7 +43,7 @@ function InvestigationReport() {
     doc.setFontSize(12);
     doc.text(road.state, 130, 100, null, null, 'center');
     
-
+    console.log(road)
     var columns = ["Distress Type", "Distress Name", "Precision"];
     var data = [
       ["Type 1", "Name 1", "Precision 1"],
@@ -52,8 +52,13 @@ function InvestigationReport() {
       // add more rows as necessary
     ];
     // var data=[]
-    // road.distress.
-    // data.push([])
+    // var name={"D00":"Linear Crack,Wheele Mark","D01":"Linear Crack, Construction joint part","D10":"Linear Crack,Lateral","D11":"Linear Crack, Construction joint part","D20":"Aligator Crack","D40":"Ruttling, bump,pothole,seperation","D43":"White line blur","D44":"Cross Walk blur"}
+    // road.distress.forEach((dis)=>{
+    //   for(var i=0;i< dis.distress.length; i++){
+
+    //     data.push([dis.distress[i],name[dis.distress[i]],dis.value[i]])
+    //   }
+    // })
 
     var startY = 110;
     var margin = { top: 10, right: 10, bottom: 10, left: 10 };
@@ -70,7 +75,7 @@ function InvestigationReport() {
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text('High', 105, doc.autoTable.previous.finalY + 20, null, null, 'center');
+    doc.text(road.severity, 105, doc.autoTable.previous.finalY + 20, null, null, 'center');
 
     // var pdfOutput = doc.output();
     // var blob = new Blob([pdfOutput], { type: 'application/pdf' });
